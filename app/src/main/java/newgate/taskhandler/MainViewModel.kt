@@ -15,9 +15,9 @@ class MainViewModel : ViewModel() {
 
     fun getLocalTime(): Boolean {
 
-        // launch the task and set an optional initial value [Task.Progress]
+        // launch the task and set the initial value [Task.Progress]
         // return true, if the task was launched successfully
-        // return false, if the task has already launched and requires reset
+        // return false, if the task has already been launched and requires reset
         return getLocalTimeHandler.handle(Float.NaN) {
             delay(2.seconds)
 

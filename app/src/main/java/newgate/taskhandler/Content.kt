@@ -55,6 +55,8 @@ fun Content(
             Row {
                 FilledIconButton(
                     onClick = {
+
+                        // reset (and cancel) the task
                         mainViewModel.resetToGetLocalTime()
                     },
                     enabled = getLocalTimeTask.isProgress,
