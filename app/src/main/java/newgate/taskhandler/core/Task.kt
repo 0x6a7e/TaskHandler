@@ -36,6 +36,46 @@ inline val Task<*, *>?.isProgress: Boolean
 inline val Task<*, *>?.isResult: Boolean
     get() = this is Task.Result
 
+fun <P> Task<P, *>.getProgressOrNull(): P? {
+    return if (this is Task.Progress) value
+    else null
+}
+
+fun <R> Task<*, R>.getResultOrNull(): R? {
+    return if (this is Task.Result) value
+    else null
+}
+
+fun <P> Task<P, *>.getProgressOrDefault(defaultValue: P): P {
+    return if (this is Task.Progress) value
+    else defaultValue
+}
+
+fun <R> Task<*, R>.getResultOrDefault(defaultValue: R): R {
+    return if (this is Task.Result) value
+    else defaultValue
+}
+
+inline fun <P, R> Task<P, R>.getProgressOrElse(onResult: (R) -> P): P {
+    return when (this) {
+        is Task.Progress -> value
+
+        is Task.Result -> {
+            onResult(value)
+        }
+    }
+}
+
+inline fun <P, R> Task<P, R>.getResultOrElse(onProgress: (P) -> R): R {
+    return when (this) {
+        is Task.Progress -> {
+            onProgress(value)
+        }
+
+        is Task.Result -> value
+    }
+}
+
 inline fun <P, R> Task<P, R>.onProgress(action: (P) -> Unit): Task<P, R> {
     if (this is Task.Progress) {
         action(value)
