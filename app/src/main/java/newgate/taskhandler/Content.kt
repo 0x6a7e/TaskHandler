@@ -43,14 +43,14 @@ fun Content(
     Scaffold(
         modifier = modifier,
         snackbarHost = {
-            SnackbarHost(snackbarHostState)
+            SnackbarHost(hostState = snackbarHostState)
         },
     ) { contentPadding ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(contentPadding)
-                .padding(16.dp)
+                .padding(16.dp),
         ) {
             Row {
                 FilledIconButton(
@@ -62,8 +62,8 @@ fun Content(
                     enabled = getLocalTimeTask.isProgress,
                 ) {
                     Icon(
-                        Icons.Default.Close,
-                        "Cancel",
+                        imageVector = Icons.Default.Close,
+                        contentDescription = "Cancel",
                     )
                 }
                 Spacer(Modifier.width(8.dp))
@@ -74,10 +74,10 @@ fun Content(
                         // because otherwise the button is disabled
                         check(mainViewModel.getLocalTime())
                     },
-                    enabled = getLocalTimeTask == null,
                     modifier = Modifier.fillMaxWidth(),
+                    enabled = getLocalTimeTask == null,
                 ) {
-                    Text("Get local time")
+                    Text(text = "Get local time")
                 }
             }
 
@@ -100,7 +100,7 @@ fun Content(
 
                     // suspend fun (show the Snackbar indefinitely)
                     snackbarHostState.showSnackbar(
-                        localTime.toString(),
+                        message = localTime.toString(),
                         actionLabel = "Close",
                     )
 

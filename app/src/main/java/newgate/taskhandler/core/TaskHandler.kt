@@ -60,7 +60,7 @@ inline fun <R> TaskHandler<Unit, R>.handle(
     crossinline collect: suspend () -> R,
 ): Boolean {
     return handle(
-        Unit,
+        initialValue = Unit,
         coroutineContext = coroutineContext,
     ) {
         collect()
