@@ -59,7 +59,7 @@ fun Content(
                         // reset (and cancel) the task
                         mainViewModel.resetToGetLocalTime()
                     },
-                    enabled = getLocalTimeTask.isProgress,
+                    enabled = getLocalTimeTask?.isProgress == true,
                 ) {
                     Icon(
                         imageVector = Icons.Default.Close,
